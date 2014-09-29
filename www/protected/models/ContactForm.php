@@ -37,6 +37,10 @@ class ContactForm extends CFormModel
 	{
 		return array(
 			'verifyCode'=>'Verification Code',
+            'name'=>'Имя',
+            'email'=>'Электронный адрес',
+            'subject'=>'Тема',
+            'body'=>'Описание'
 		);
 	}
 }
