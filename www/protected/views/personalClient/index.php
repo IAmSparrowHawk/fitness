@@ -1,5 +1,5 @@
 <?php
-/* @var $this SiteController */
+/* @var $this PersonalClientController */
 
 $this->pageTitle= "Личный кабинет";
 $this->breadcrumbs=array(
@@ -8,3 +8,6 @@ $this->breadcrumbs=array(
 ?>
 
 <h1><?php echo CHtml::encode(Yii::app()->user->name.',')?> добро пожаловать в ваш личный кабинет</h1>
+
+
+
