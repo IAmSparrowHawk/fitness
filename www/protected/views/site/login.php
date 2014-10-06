@@ -40,6 +40,12 @@ $this->breadcrumbs=array(
 		</p>
 	</div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'role'); ?>
+        <?php echo $form->dropDownList($model,'role', array('admin','coach','client')); ?>
+        <?php echo $form->error($model,'role'); ?>
+    </div>
+
 	<div class="row rememberMe">
 		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->label($model,'rememberMe'); ?>

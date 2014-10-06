@@ -37,7 +37,7 @@ class User extends ActiveRecord
             array('username, password', 'length', 'max'=>128),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, username, password, role', 'safe', 'on'=>'search'),
+            array('username, password, role', 'safe', 'on'=>'search'),
         );
     }
 
@@ -62,9 +62,9 @@ class User extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
-            'role' => 'Role',
+            'username' => 'Имя',
+            'password' => 'Пароль',
+            'role' => 'Роль',
         );
     }
 
@@ -86,7 +86,6 @@ class User extends ActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
         $criteria->compare('username',$this->username,true);
         $criteria->compare('password',$this->password,true);
         $criteria->compare('role',$this->role);

@@ -31,7 +31,7 @@
     </div>
     <!-- header -->
 
-    <div id="mainmenu">
+    <div >
         <?php $this->widget('application.extensions.mbmenu.MbMenu', array(
             'items' => array(
                 array('label' => 'Главная', 'url' => array('/site/index')),

@@ -1,12 +1,12 @@
 <?php
 /* @var $this PersonalClientController */
-
+$record=Client::model()->findByAttributes(array('userid'=>Yii::app()->user->id));
 $this->pageTitle = "Личный кабинет: Информация";
 $this->breadcrumbs = array(
     'Личный кабинет',
     'Информация'
 );
-//$dataProvider=new CActiveDataProvider('Schedule');
+
 ?>
 
 <div class="row buttons">
@@ -16,24 +16,25 @@ $this->breadcrumbs = array(
     <tr>
         <td rowspan="3"><img src=""></td>
         <td><b>ФИО:</b></td>
-        <td colspan="3"><?php echo Yii::app()->user->name ?></td>
+        <td colspan="3"><?php echo $record->familyname ?> <?php echo $record->personname ?> <?php echo $record->farthername ?></td>
     </tr>
     <tr>
         <td><b>Дата рождения:</b></td>
-        <td><?php echo Yii::app()->user->name ?> дата</td>
+        <td><?php echo $record->birthdate ?></td>
         <td><b>Возраст:</b></td>
         <td><?php echo Yii::app()->user->name ?> возраст</td>
     </tr>
     <tr>
         <td><b>Контактный телефон:</b></td>
-        <td><?php echo Yii::app()->user->name ?> телефон</td>
+        <td><?php echo $record->phone ?></td>
     </tr>
     <tr>
         <td colspan="4"><b>Ограничения:</b></td>
     </tr>
     <tr>
-        <td colspan="4"><?php echo Yii::app()->user->name ?> описание заболеваний,
-            травм и ограничений по занятию спортом
+        <td colspan="4"><?php echo $record->limits ?>
+            <!-- описание заболеваний,
+            травм и ограничений по занятию спортом-->
         </td>
     </tr>
 </table>
