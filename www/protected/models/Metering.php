@@ -1,31 +1,35 @@
 <?php
 
 /**
- * This is the model class for table "tbl_schedule".
+ * This is the model class for table "tbl_metering".
  *
- * The followings are the available columns in table 'tbl_schedule':
+ * The followings are the available columns in table 'tbl_metering':
  * @property integer $id
  * @property integer $client
  * @property integer $coach
- * @property string $datevisit
- * @property string $timevisit
- * @property integer $serv
- * @property integer $status
+ * @property string $datemetr
+ * @property double $weight
+ * @property double $chest
+ * @property double $waistline
+ * @property double $abdominalgirth
+ * @property double $hips
+ * @property double $rhip
+ * @property double $rknee
+ * @property double $rtibia
+ * @property double $rforearm
  *
  * The followings are the available model relations:
  * @property Client $client0
  * @property Coach $coach0
- * @property Serv $serv0
- * @property Typestatus $status0
  */
-class Schedule extends ActiveRecord
+class Metering extends ActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'tbl_schedule';
+        return 'tbl_metering';
     }
 
     /**
@@ -36,11 +40,12 @@ class Schedule extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('client, coach, serv, status', 'numerical', 'integerOnly'=>true),
-            array('datevisit, timevisit', 'safe'),
+            array('client, coach', 'numerical', 'integerOnly'=>true),
+            array('weight, chest, waistline, abdominalgirth, hips, rhip, rknee, rtibia, rforearm', 'numerical'),
+            array('datemetr', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, client, coach, datevisit, timevisit, serv, status', 'safe', 'on'=>'search'),
+            array('id, client, coach, datemetr, weight, chest, waistline, abdominalgirth, hips, rhip, rknee, rtibia, rforearm', 'safe', 'on'=>'search'),
         );
     }
 
@@ -54,8 +59,6 @@ class Schedule extends ActiveRecord
         return array(
             'client0' => array(self::BELONGS_TO, 'Client', 'client'),
             'coach0' => array(self::BELONGS_TO, 'Coach', 'coach'),
-            'serv0' => array(self::BELONGS_TO, 'Serv', 'serv'),
-            'status0' => array(self::BELONGS_TO, 'Typestatus', 'status'),
         );
     }
 
@@ -68,10 +71,16 @@ class Schedule extends ActiveRecord
             'id' => 'ID',
             'client' => 'Client',
             'coach' => 'Coach',
-            'datevisit' => 'Datevisit',
-            'timevisit' => 'Timevisit',
-            'serv' => 'Serv',
-            'status' => 'Status',
+            'datemetr' => 'Datemetr',
+            'weight' => 'Weight',
+            'chest' => 'Chest',
+            'waistline' => 'Waistline',
+            'abdominalgirth' => 'Abdominalgirth',
+            'hips' => 'Hips',
+            'rhip' => 'Rhip',
+            'rknee' => 'Rknee',
+            'rtibia' => 'Rtibia',
+            'rforearm' => 'Rforearm',
         );
     }
 
@@ -96,10 +105,16 @@ class Schedule extends ActiveRecord
         $criteria->compare('id',$this->id);
         $criteria->compare('client',$this->client);
         $criteria->compare('coach',$this->coach);
-        $criteria->compare('datevisit',$this->datevisit,true);
-        $criteria->compare('timevisit',$this->timevisit,true);
-        $criteria->compare('serv',$this->serv);
-        $criteria->compare('status',$this->status);
+        $criteria->compare('datemetr',$this->datemetr,true);
+        $criteria->compare('weight',$this->weight);
+        $criteria->compare('chest',$this->chest);
+        $criteria->compare('waistline',$this->waistline);
+        $criteria->compare('abdominalgirth',$this->abdominalgirth);
+        $criteria->compare('hips',$this->hips);
+        $criteria->compare('rhip',$this->rhip);
+        $criteria->compare('rknee',$this->rknee);
+        $criteria->compare('rtibia',$this->rtibia);
+        $criteria->compare('rforearm',$this->rforearm);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -110,7 +125,7 @@ class Schedule extends ActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return Schedule the static model class
+     * @return Metering the static model class
      */
     public static function model($className=__CLASS__)
     {

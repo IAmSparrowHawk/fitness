@@ -1,31 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "tbl_schedule".
+ * This is the model class for table "tbl_user".
  *
- * The followings are the available columns in table 'tbl_schedule':
+ * The followings are the available columns in table 'tbl_user':
  * @property integer $id
- * @property integer $client
- * @property integer $coach
- * @property string $datevisit
- * @property string $timevisit
- * @property integer $serv
- * @property integer $status
+ * @property string $username
+ * @property string $password
+ * @property integer $role
  *
  * The followings are the available model relations:
- * @property Client $client0
- * @property Coach $coach0
- * @property Serv $serv0
- * @property Typestatus $status0
+ * @property Client[] $clients
+ * @property Coach[] $coaches
+ * @property Typerole $role0
  */
-class Schedule extends ActiveRecord
+class User extends ActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'tbl_schedule';
+        return 'tbl_user';
     }
 
     /**
@@ -36,11 +32,12 @@ class Schedule extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('client, coach, serv, status', 'numerical', 'integerOnly'=>true),
-            array('datevisit, timevisit', 'safe'),
+            array('username, password, role', 'required'),
+            array('role', 'numerical', 'integerOnly'=>true),
+            array('username, password', 'length', 'max'=>128),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, client, coach, datevisit, timevisit, serv, status', 'safe', 'on'=>'search'),
+            array('id, username, password, role', 'safe', 'on'=>'search'),
         );
     }
 
@@ -52,10 +49,9 @@ class Schedule extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'client0' => array(self::BELONGS_TO, 'Client', 'client'),
-            'coach0' => array(self::BELONGS_TO, 'Coach', 'coach'),
-            'serv0' => array(self::BELONGS_TO, 'Serv', 'serv'),
-            'status0' => array(self::BELONGS_TO, 'Typestatus', 'status'),
+            'clients' => array(self::HAS_ONE, 'Client', 'userid'),
+            'coaches' => array(self::HAS_ONE, 'Coach', 'userid'),
+            'role0' => array(self::BELONGS_TO, 'Typerole', 'role'),
         );
     }
 
@@ -66,12 +62,9 @@ class Schedule extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'client' => 'Client',
-            'coach' => 'Coach',
-            'datevisit' => 'Datevisit',
-            'timevisit' => 'Timevisit',
-            'serv' => 'Serv',
-            'status' => 'Status',
+            'username' => 'Username',
+            'password' => 'Password',
+            'role' => 'Role',
         );
     }
 
@@ -94,12 +87,9 @@ class Schedule extends ActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id);
-        $criteria->compare('client',$this->client);
-        $criteria->compare('coach',$this->coach);
-        $criteria->compare('datevisit',$this->datevisit,true);
-        $criteria->compare('timevisit',$this->timevisit,true);
-        $criteria->compare('serv',$this->serv);
-        $criteria->compare('status',$this->status);
+        $criteria->compare('username',$this->username,true);
+        $criteria->compare('password',$this->password,true);
+        $criteria->compare('role',$this->role);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -110,7 +100,7 @@ class Schedule extends ActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return Schedule the static model class
+     * @return User the static model class
      */
     public static function model($className=__CLASS__)
     {

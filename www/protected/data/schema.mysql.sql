@@ -1,28 +1,204 @@
-CREATE TABLE tbl_user (
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(128) NOT NULL,
-    password VARCHAR(128) NOT NULL,
-    email VARCHAR(128) NOT NULL
-);
+set foreign_key_checks =0;
+drop table if exists tbl_typeserv;
+drop table if exists tbl_typestatus;
+drop table if exists tbl_typerole;
 
-INSERT INTO tbl_user (username, password, email) VALUES ('test1', 'pass1', 'test1@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test2', 'pass2', 'test2@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test3', 'pass3', 'test3@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test4', 'pass4', 'test4@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test5', 'pass5', 'test5@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test6', 'pass6', 'test6@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test7', 'pass7', 'test7@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test8', 'pass8', 'test8@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test9', 'pass9', 'test9@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test10', 'pass10', 'test10@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test11', 'pass11', 'test11@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test12', 'pass12', 'test12@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test13', 'pass13', 'test13@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test14', 'pass14', 'test14@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test15', 'pass15', 'test15@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test16', 'pass16', 'test16@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test17', 'pass17', 'test17@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test18', 'pass18', 'test18@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test19', 'pass19', 'test19@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test20', 'pass20', 'test20@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test21', 'pass21', 'test21@example.com');
+create table IF NOT EXISTS tbl_typeserv( -- справочник типы устлуг
+  id integer not null primary key auto_increment,-- ключ
+  descript varchar(255) not null unique -- название типа
+) ENGINE = InnoDB;
+insert into tbl_typeserv(descript)values ('Тонус-зал');
+insert into tbl_typeserv(descript)values ('Фитнес-зал');
+insert into tbl_typeserv(descript)values ('Спа-зал');
+insert into tbl_typeserv(descript)values ('Косметологические');
+insert into tbl_typeserv(descript)values ('Бассейн');
+insert into tbl_typeserv(descript)values ('Товар');
+
+create table IF NOT EXISTS tbl_typestatus( -- справочник статус записи в расписании
+  id integer not null primary key auto_increment,-- ключ
+  descript varchar(255) not null unique -- статус
+) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+insert into tbl_typestatus(descript)values ('Выполнено');
+insert into tbl_typestatus(descript)values ('Подтвержено');
+insert into tbl_typestatus(descript)values ('Отклонено');
+insert into tbl_typestatus(descript)values ('Не выполнено');
+insert into tbl_typestatus(descript)values ('Ожидание ответа');
+
+
+create table IF NOT EXISTS tbl_typerole( -- справочник роли пользователей
+  id integer not null primary key auto_increment,-- ключ
+  descript varchar(255) not null unique -- статус
+) ENGINE=InnoDB  AUTO_INCREMENT=1;
+insert into tbl_typerole(descript)values ('admin');
+insert into tbl_typerole(descript)values ('coach');
+insert into tbl_typerole(descript)values ('client');
+
+drop table if exists tbl_user;
+create table IF NOT EXISTS  tbl_user ( -- набор пользователей
+  id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, -- ключ
+  username VARCHAR(128) NOT NULL unique, -- логин
+  password VARCHAR(128) NOT NULL, -- пароль
+  role INTEGER NOT NULL, -- роль
+  FOREIGN KEY FK_user_role (role) REFERENCES tbl_typerole(id)
+) ENGINE=InnoDB  AUTO_INCREMENT=1;
+INSERT INTO tbl_user (username, password, role) VALUES ('admin', 'admin', 1);-- запись админа
+INSERT INTO tbl_user (username, password, role) VALUES ('coach1', '1', 2);-- запись младшего тренера
+INSERT INTO tbl_user (username, password, role) VALUES ('coach2', '2', 2);-- запись старшего администратора
+INSERT INTO tbl_user (username, password, role) VALUES ('client1', '1', 3); -- запись клиента 1
+INSERT INTO tbl_user (username, password, role) VALUES ('client2', '2', 3); -- запись клиента 2
+
+drop table if exists tbl_typeduration;
+create table IF NOT EXISTS tbl_typeduration( -- справочник "время действия абонемента"
+  id integer not null primary key auto_increment,-- ключ
+  descript varchar(255) not null unique -- статус
+) ENGINE=InnoDB  AUTO_INCREMENT=1;
+insert into tbl_typeduration(descript)values ('Основное');
+insert into tbl_typeduration(descript)values ('Утро: 8-14');
+insert into tbl_typeduration(descript)values ('Вечер: 14-22');
+
+drop table if exists tbl_typeabon;
+create table IF NOT EXISTS tbl_typeabon( -- справочник типы абонемента
+  id integer not null primary key auto_increment, -- ключ
+  descript varchar(255) not null unique -- название типа
+) ENGINE=InnoDB  AUTO_INCREMENT=1;
+insert into tbl_typeabon(descript)values ('Основной');
+insert into tbl_typeabon(descript)values ('Тонус зона');
+insert into tbl_typeabon(descript)values ('Фитнес зона');
+insert into tbl_typeabon(descript)values ('Спа зона');
+insert into tbl_typeabon(descript)values ('Групповой');
+insert into tbl_typeabon(descript)values ('Единичный');
+
+drop table if exists tbl_serv;
+create table IF NOT EXISTS tbl_serv( -- список услуг фитнесс-зала
+  id integer not null primary key auto_increment,-- ключ
+  typeserv integer not null, -- тип услуги
+  servname varchar(255) not null, -- название услуги
+  pricemoney float not null, -- цена в руб
+  priceunit integer not null, -- цена в единицах
+  timeserv int, -- время услуги в минутах
+  FOREIGN KEY FK_serv_type(typeserv) REFERENCES tbl_typeserv(id)
+)ENGINE=InnoDB  AUTO_INCREMENT=1;
+-- тонус-зал
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (1, 'Тонусные столы-8', 1, 2, 56);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (1, 'Тонусные столы-4', 1, 1, 28);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (1, 'Виброплатформа 5', 1, 1, 5);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (1, 'Виброплатформа 10', 1, 2, 10);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (1, 'Баланс-платформа 15', 1, 1, 15);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (1, 'Баланс-платформа 30', 1, 2, 30);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (1, 'Иппотренажер', 1, 1, 15);
+-- фитнесс-зал
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (2, 'Функциональный тренинг', 250, 1, 60);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (2, 'Восточные танцы', 250, 1, 60);
+-- спа
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (3, 'Ягодное сияние', 2100, 6, 56);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (3, 'Бархатная кожа (с аромамаслом «Омолаживающее» (регенерирующее))', 1600, 6, 28);
+-- Косметологические
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (4, 'Химический пилинг лица L+', 900, 0, 10);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (4, 'Химический пилинг лица GLS', 950, 0, 15);
+-- Товар
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (6, 'Крем-гель корректирующий Альганика 500 ml', 590, 0, 0);
+insert into tbl_serv(typeserv, servname,pricemoney,priceunit,timeserv)values (6, 'Омолаживающий крем Janssen Cosmetics', 300, 0, 0);
+
+drop table if exists tbl_client;
+create table IF NOT EXISTS  tbl_client( -- клиенты
+  id integer not null primary key auto_increment,-- ключ
+  userid integer not null unique, -- ключ записи пользователя
+  familyname varchar(50) not null,-- фамилия
+  personname varchar(50) not null,-- имя
+  farthername varchar(50),-- отчество
+  birthdate date not null,-- дата рождения
+  adres varchar(255), -- адрес
+  phone varchar(20), -- контактный телефон
+  limits varchar(255), -- ограничения на занятия спортом
+  program varchar(1024), -- рекомендованная программа
+  diet varchar(1024), -- рекомендованная диета
+  begindate date not null, -- дата прихода
+  email varchar(128), -- контактный эл.адрес
+  FOREIGN KEY FK_client_user(userid) REFERENCES tbl_user(id)
+) ENGINE=InnoDB  AUTO_INCREMENT=1;
+insert into tbl_client(userid,familyname,personname,farthername,birthdate,phone,limits, begindate)values
+(4,'Иванова','Анна','Ивановна',date('1980-01-01'),'+7-905-606-01-01','Травма позвоночника',date('2014-01-10'));
+insert into tbl_client(userid,familyname,personname,farthername,birthdate,phone,limits, begindate)values
+(5,'Петрова','Инна','Петровна',date('1988-10-10'),'+7-905-305-05-05','Нет',date('2014-11-04'));
+
+drop table if exists tbl_coach;
+create table IF NOT EXISTS tbl_coach( -- тренеры
+  id integer not null primary key auto_increment,-- ключ
+  userid integer not null unique, -- ключ записи пользователя
+  familyname varchar(50) not null,-- фамилия
+  personname varchar(50) not null,-- имя
+  farthername varchar(50),-- отчество
+  birthdate date not null,-- дата рождения
+  adres varchar(255), -- адрес
+  phone varchar(20), -- контактный телефон
+  begindate date not null, -- дата приема на работу
+  enddate date, -- дата увольнения
+  email varchar(128), -- контактный эл.адрес
+  office varchar(128), -- должность
+  schedule varchar(50), -- график
+  FOREIGN KEY FK_client_user(userid) REFERENCES tbl_user(id)
+) ENGINE=InnoDB  AUTO_INCREMENT=1;
+insert into tbl_coach(userid,familyname,personname,farthername,birthdate,phone,begindate,office) values
+(2,'Смирнова','Екатерина','Васильевна',date('1984-01-23'),'+7-937-909-02-34',date('2010-04-11'),'Старший тренер');
+insert into tbl_coach(userid,familyname,personname,farthername,birthdate,phone,begindate,office) values
+(3,'Васильева','Марина','Ивановна',date('1986-06-02'),'+7-937-945-34-34',date('2013-11-04'),'Косметолог');
+
+drop table if exists tbl_abonement;
+create table IF NOT EXISTS tbl_abonement(-- абонемент
+  id integer not null primary key auto_increment,-- ключ
+  num integer not null, -- №
+  countunit integer, -- количество единиц
+  paydate date not null, -- дата оплаты
+  datebegin date not null, -- срок действия начало
+  dateend date not null, -- срок дейтсвия конец
+  typeduration integer not null, -- тип времени действия
+  balance integer, -- остаток единиц
+  typeabon integer not null, -- тип абонемента
+  client integer, -- клиент
+  coach integer, -- персонал
+  FOREIGN KEY FK_abonement_durname(typeduration) REFERENCES tbl_typeduration(id),
+  FOREIGN KEY FK_abonement_abon(typeabon) REFERENCES tbl_typeabon(id),
+  FOREIGN KEY FK_abonement_client(client) REFERENCES tbl_client(id),
+  FOREIGN KEY FK_abonement_coach(coach) REFERENCES tbl_coach(id)
+) ENGINE=InnoDB  AUTO_INCREMENT=1;
+insert into tbl_abonement(num,countunit,paydate,datebegin,dateend,typeduration,typeabon,client)values
+(1, -1,date('2014-06-02'),date('2014-06-02'),date('2014-12-02'),1,1,1);
+insert into tbl_abonement(num,countunit,paydate,datebegin,dateend,typeduration,typeabon,client,balance)values
+(1, 300,date('2014-07-22'),date('2014-08-01'),date('2015-03-01'),1,1,1,300);
+
+drop table if exists tbl_metering;
+create table IF NOT EXISTS tbl_metering(-- замер
+ id integer not null primary key auto_increment,-- ключ
+ client integer, -- клиент
+ coach integer, -- персонал
+ datemetr date, -- дата замера
+ weight float, -- вес
+ chest float, -- обхват груди
+ waistline float, -- обхват талии
+ abdominalgirth float, -- обхват живота
+ hips float, -- обхват бедер
+ rhip float, -- обхват правого бедра
+ rknee float, -- обхват правого колена
+ rtibia float, -- обхват правой голени
+ rforearm float, -- обхват правого предплечья
+ FOREIGN KEY FK_metering_client(client) REFERENCES tbl_client(id),
+  FOREIGN KEY FK_metering_coach(coach) REFERENCES tbl_coach(id)
+)ENGINE=InnoDB  AUTO_INCREMENT=1;
+
+drop table if exists tbl_schedule;
+create table IF NOT EXISTS  tbl_schedule( -- расписание
+ id integer not null primary key auto_increment,-- ключ
+ client integer, -- клиент
+ coach integer, -- персонал
+ datevisit date, -- дата визита
+ timevisit time, -- время визита
+ serv integer, -- услуга
+ status integer, -- статус
+ FOREIGN KEY FK_schedul_client(client) REFERENCES tbl_client(id),
+  FOREIGN KEY FK_schedul_coach(coach) REFERENCES tbl_coach(id),
+  FOREIGN KEY FK_schedul_serv(serv) REFERENCES tbl_serv(id),
+  FOREIGN KEY FK_schedul_status(status) REFERENCES tbl_typestatus(id)
+)ENGINE=InnoDB  AUTO_INCREMENT=1;
+
+
+set foreign_key_checks =1;

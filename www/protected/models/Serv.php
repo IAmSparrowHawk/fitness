@@ -1,31 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "tbl_schedule".
+ * This is the model class for table "tbl_serv".
  *
- * The followings are the available columns in table 'tbl_schedule':
+ * The followings are the available columns in table 'tbl_serv':
  * @property integer $id
- * @property integer $client
- * @property integer $coach
- * @property string $datevisit
- * @property string $timevisit
- * @property integer $serv
- * @property integer $status
+ * @property integer $typeserv
+ * @property string $servname
+ * @property double $pricemoney
+ * @property integer $priceunit
+ * @property integer $timeserv
  *
  * The followings are the available model relations:
- * @property Client $client0
- * @property Coach $coach0
- * @property Serv $serv0
- * @property Typestatus $status0
+ * @property Schedule[] $schedules
+ * @property Typeserv $typeserv0
  */
-class Schedule extends ActiveRecord
+class Serv extends ActiveRecord
 {
     /**
      * @return string the associated database table name
      */
     public function tableName()
     {
-        return 'tbl_schedule';
+        return 'tbl_serv';
     }
 
     /**
@@ -36,11 +33,13 @@ class Schedule extends ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('client, coach, serv, status', 'numerical', 'integerOnly'=>true),
-            array('datevisit, timevisit', 'safe'),
+            array('typeserv, servname, pricemoney, priceunit', 'required'),
+            array('typeserv, priceunit, timeserv', 'numerical', 'integerOnly'=>true),
+            array('pricemoney', 'numerical'),
+            array('servname', 'length', 'max'=>255),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, client, coach, datevisit, timevisit, serv, status', 'safe', 'on'=>'search'),
+            array('id, typeserv, servname, pricemoney, priceunit, timeserv', 'safe', 'on'=>'search'),
         );
     }
 
@@ -52,10 +51,8 @@ class Schedule extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'client0' => array(self::BELONGS_TO, 'Client', 'client'),
-            'coach0' => array(self::BELONGS_TO, 'Coach', 'coach'),
-            'serv0' => array(self::BELONGS_TO, 'Serv', 'serv'),
-            'status0' => array(self::BELONGS_TO, 'Typestatus', 'status'),
+            'schedules' => array(self::HAS_MANY, 'Schedule', 'serv'),
+            'typeserv0' => array(self::BELONGS_TO, 'Typeserv', 'typeserv'),
         );
     }
 
@@ -66,12 +63,11 @@ class Schedule extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'client' => 'Client',
-            'coach' => 'Coach',
-            'datevisit' => 'Datevisit',
-            'timevisit' => 'Timevisit',
-            'serv' => 'Serv',
-            'status' => 'Status',
+            'typeserv' => 'Typeserv',
+            'servname' => 'Servname',
+            'pricemoney' => 'Pricemoney',
+            'priceunit' => 'Priceunit',
+            'timeserv' => 'Timeserv',
         );
     }
 
@@ -94,12 +90,11 @@ class Schedule extends ActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id);
-        $criteria->compare('client',$this->client);
-        $criteria->compare('coach',$this->coach);
-        $criteria->compare('datevisit',$this->datevisit,true);
-        $criteria->compare('timevisit',$this->timevisit,true);
-        $criteria->compare('serv',$this->serv);
-        $criteria->compare('status',$this->status);
+        $criteria->compare('typeserv',$this->typeserv);
+        $criteria->compare('servname',$this->servname,true);
+        $criteria->compare('pricemoney',$this->pricemoney);
+        $criteria->compare('priceunit',$this->priceunit);
+        $criteria->compare('timeserv',$this->timeserv);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -110,7 +105,7 @@ class Schedule extends ActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return Schedule the static model class
+     * @return Serv the static model class
      */
     public static function model($className=__CLASS__)
     {
