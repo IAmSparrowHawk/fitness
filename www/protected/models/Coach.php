@@ -63,10 +63,10 @@ class Coach extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'abonements' => array(self::HAS_MANY, 'Abonement', 'coach'),
-            'user' => array(self::HAS_ONE, 'User', 'userid'),
-            'meterings' => array(self::HAS_MANY, 'Metering', 'coach'),
-            'schedules' => array(self::HAS_MANY, 'Schedule', 'coach'),
+            'rel_abonement' => array(self::HAS_MANY, 'Abonement', 'coach'),
+            'rel_user' => array(self::HAS_ONE, 'User', 'userid'),
+            'rel_metering' => array(self::HAS_MANY, 'Metering', 'coach'),
+            'rel_schedule' => array(self::HAS_MANY, 'Schedule', 'coach'),
         );
     }
 
@@ -78,17 +78,17 @@ class Coach extends ActiveRecord
         return array(
             'id' => 'ID',
             'userid' => 'Userid',
-            'familyname' => 'Familyname',
-            'personname' => 'Personname',
-            'farthername' => 'Farthername',
-            'birthdate' => 'Birthdate',
-            'adres' => 'Adres',
-            'phone' => 'Phone',
-            'begindate' => 'Begindate',
-            'enddate' => 'Enddate',
-            'email' => 'Email',
-            'office' => 'Office',
-            'schedule' => 'Schedule',
+            'familyname' => 'Фамилия',
+            'personname' => 'Имя',
+            'farthername' => 'Отчество',
+            'birthdate' => 'Дата рождения',
+            'adres' => 'Адрес',
+            'phone' => 'КОнтактный телефон',
+            'begindate' => 'Дата приема',
+            'enddate' => 'Дата увольнения',
+            'email' => 'E-mail',
+            'office' => 'Должность',
+            'schedule' => 'График',
         );
     }
 

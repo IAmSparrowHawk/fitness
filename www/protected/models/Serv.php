@@ -51,8 +51,8 @@ class Serv extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'schedules' => array(self::HAS_MANY, 'Schedule', 'serv'),
-            'typeserv0' => array(self::BELONGS_TO, 'Typeserv', 'typeserv'),
+            'rel_schedule' => array(self::HAS_MANY, 'Schedule', 'serv'),
+            'rel_typeserv' => array(self::BELONGS_TO, 'Typeserv', 'typeserv'),
         );
     }
 
@@ -63,11 +63,11 @@ class Serv extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'typeserv' => 'Typeserv',
-            'servname' => 'Servname',
-            'pricemoney' => 'Pricemoney',
-            'priceunit' => 'Priceunit',
-            'timeserv' => 'Timeserv',
+            'typeserv' => 'Тип',
+            'servname' => 'Название',
+            'pricemoney' => 'Цена, руб.',
+            'priceunit' => 'Цена, ед.',
+            'timeserv' => 'Время, мин',
         );
     }
 
@@ -111,4 +111,4 @@ class Serv extends ActiveRecord
     {
         return parent::model($className);
     }
-}
+    }

@@ -56,10 +56,10 @@ class Abonement extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'typeduration0' => array(self::BELONGS_TO, 'Typeduration', 'typeduration'),
-            'typeabon0' => array(self::BELONGS_TO, 'Typeabon', 'typeabon'),
-            'client0' => array(self::BELONGS_TO, 'Client', 'client'),
-            'coach0' => array(self::BELONGS_TO, 'Coach', 'coach'),
+            'rel_typeduration' => array(self::BELONGS_TO, 'Typeduration', 'typeduration'),
+            'rel_typeabon' => array(self::BELONGS_TO, 'Typeabon', 'typeabon'),
+            'rel_client' => array(self::BELONGS_TO, 'Client', 'client'),
+            'rel_coach' => array(self::BELONGS_TO, 'Coach', 'coach'),
         );
     }
 
@@ -70,16 +70,16 @@ class Abonement extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'num' => 'Num',
-            'countunit' => 'Countunit',
-            'paydate' => 'Paydate',
-            'datebegin' => 'Datebegin',
-            'dateend' => 'Dateend',
-            'typeduration' => 'Typeduration',
-            'balance' => 'Balance',
-            'typeabon' => 'Typeabon',
-            'client' => 'Client',
-            'coach' => 'Coach',
+            'num' => '№абон.',
+            'countunit' => 'Количество единиц',
+            'paydate' => 'Дата оплаты',
+            'datebegin' => 'Начало действия',
+            'dateend' => 'Конец действия',
+            'typeduration' => 'Время действия',
+            'balance' => 'Остаток',
+            'typeabon' => 'Тип',
+            'client' => 'Клиент',
+            'coach' => 'Тренер',
         );
     }
 

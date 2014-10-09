@@ -44,7 +44,7 @@ class Typeabon extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'abonements' => array(self::HAS_MANY, 'Abonement', 'typeabon'),
+            'rel_abonement' => array(self::HAS_MANY, 'Abonement', 'typeabon'),
         );
     }
 
@@ -55,7 +55,7 @@ class Typeabon extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'descript' => 'Descript',
+            'descript' => 'Тип абонемента',
         );
     }
 

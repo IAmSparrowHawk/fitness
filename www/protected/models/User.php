@@ -49,9 +49,9 @@ class User extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'clients' => array(self::HAS_ONE, 'Client', 'userid'),
-            'coaches' => array(self::HAS_ONE, 'Coach', 'userid'),
-            'role0' => array(self::BELONGS_TO, 'Typerole', 'role'),
+            'rel_client' => array(self::HAS_ONE, 'Client', 'userid'),
+            'rel_coach' => array(self::HAS_ONE, 'Coach', 'userid'),
+            'rel_role' => array(self::BELONGS_TO, 'Typerole', 'role'),
         );
     }
 

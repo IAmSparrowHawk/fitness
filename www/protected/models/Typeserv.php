@@ -44,7 +44,7 @@ class Typeserv extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'servs' => array(self::HAS_MANY, 'Serv', 'typeserv'),
+            'rel_serv' => array(self::HAS_MANY, 'Serv', 'typeserv'),
         );
     }
 
@@ -55,7 +55,7 @@ class Typeserv extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'descript' => 'Descript',
+            'descript' => 'Тип услуги',
         );
     }
 

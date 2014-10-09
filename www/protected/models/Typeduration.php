@@ -44,7 +44,7 @@ class Typeduration extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'abonements' => array(self::HAS_MANY, 'Abonement', 'typeduration'),
+            'rel_abonement' => array(self::HAS_MANY, 'Abonement', 'typeduration'),
         );
     }
 
@@ -55,7 +55,7 @@ class Typeduration extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'descript' => 'Descript',
+            'descript' => 'Время действия',
         );
     }
 

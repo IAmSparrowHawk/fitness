@@ -57,8 +57,8 @@ class Metering extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'client0' => array(self::BELONGS_TO, 'Client', 'client'),
-            'coach0' => array(self::BELONGS_TO, 'Coach', 'coach'),
+            'rel_client' => array(self::BELONGS_TO, 'Client', 'client'),
+            'rel_coach' => array(self::BELONGS_TO, 'Coach', 'coach'),
         );
     }
 
@@ -69,18 +69,18 @@ class Metering extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'client' => 'Client',
-            'coach' => 'Coach',
-            'datemetr' => 'Datemetr',
-            'weight' => 'Weight',
-            'chest' => 'Chest',
-            'waistline' => 'Waistline',
-            'abdominalgirth' => 'Abdominalgirth',
-            'hips' => 'Hips',
-            'rhip' => 'Rhip',
-            'rknee' => 'Rknee',
-            'rtibia' => 'Rtibia',
-            'rforearm' => 'Rforearm',
+            'client' => 'Клиент',
+            'coach' => 'Тренер',
+            'datemetr' => 'Дата замера',
+            'weight' => 'Вес',
+            'chest' => 'Обхват груди',
+            'waistline' => 'Обхват талии',
+            'abdominalgirth' => 'Обхват живота',
+            'hips' => 'Обхват бедер',
+            'rhip' => 'Обхват правого бедра',
+            'rknee' => 'Обхват правого колена',
+            'rtibia' => 'Обхват правой голени',
+            'rforearm' => 'Обхват правого предплечья',
         );
     }
 

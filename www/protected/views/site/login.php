@@ -35,16 +35,9 @@ $this->breadcrumbs=array(
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
 		<p class="hint">
-			Подсказка: Вы можете войти на сайт, используя связки имя/пароль: <kbd>demo</kbd>/<kbd>demo</kbd> или
-            <kbd>admin</kbd>/<kbd>admin</kbd>.
+			Подсказка: Вы можете войти на сайт, используя связки имя/пароль: <kbd>client1</kbd>/<kbd>1</kbd>.
 		</p>
 	</div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model,'role'); ?>
-        <?php echo $form->dropDownList($model,'role', array('admin','coach','client')); ?>
-        <?php echo $form->error($model,'role'); ?>
-    </div>
 
 	<div class="row rememberMe">
 		<?php echo $form->checkBox($model,'rememberMe'); ?>

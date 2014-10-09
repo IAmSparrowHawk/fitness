@@ -52,10 +52,10 @@ class Schedule extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'client0' => array(self::BELONGS_TO, 'Client', 'client'),
-            'coach0' => array(self::BELONGS_TO, 'Coach', 'coach'),
-            'serv0' => array(self::BELONGS_TO, 'Serv', 'serv'),
-            'status0' => array(self::BELONGS_TO, 'Typestatus', 'status'),
+            'rel_client' => array(self::BELONGS_TO, 'Client', 'client'),
+            'rel_coach' => array(self::BELONGS_TO, 'Coach', 'coach'),
+            'rel_serv' => array(self::BELONGS_TO, 'Serv', 'serv'),
+            'rel_status' => array(self::BELONGS_TO, 'Typestatus', 'status'),
         );
     }
 
@@ -66,12 +66,12 @@ class Schedule extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'client' => 'Client',
-            'coach' => 'Coach',
-            'datevisit' => 'Datevisit',
-            'timevisit' => 'Timevisit',
-            'serv' => 'Serv',
-            'status' => 'Status',
+            'client' => 'Клиент',
+            'coach' => 'Тренер',
+            'datevisit' => 'Дата',
+            'timevisit' => 'Время',
+            'serv' => 'Услуга',
+            'status' => 'Статус',
         );
     }
 

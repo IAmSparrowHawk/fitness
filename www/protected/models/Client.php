@@ -63,10 +63,10 @@ class Client extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'abonements' => array(self::HAS_MANY, 'Abonement', 'client'),
-            'user' => array(self::HAS_ONE, 'User', 'userid'),
-            'meterings' => array(self::HAS_MANY, 'Metering', 'client'),
-            'schedules' => array(self::HAS_MANY, 'Schedule', 'client'),
+            'rel_abonement' => array(self::HAS_MANY, 'Abonement', 'client'),
+            'rel_user' => array(self::HAS_ONE, 'User', 'userid'),
+            'rel_metering' => array(self::HAS_MANY, 'Metering', 'client'),
+            'rel_schedule' => array(self::HAS_MANY, 'Schedule', 'client'),
         );
     }
 
@@ -78,17 +78,17 @@ class Client extends ActiveRecord
         return array(
             'id' => 'ID',
             'userid' => 'Userid',
-            'familyname' => 'Familyname',
-            'personname' => 'Personname',
-            'farthername' => 'Farthername',
-            'birthdate' => 'Birthdate',
-            'adres' => 'Adres',
-            'phone' => 'Phone',
-            'limits' => 'Limits',
-            'program' => 'Program',
-            'diet' => 'Diet',
-            'begindate' => 'Begindate',
-            'email' => 'Email',
+            'familyname' => 'Фамилия',
+            'personname' => 'Имя',
+            'farthername' => 'Отчество',
+            'birthdate' => 'Дата рождения',
+            'adres' => 'Адрес',
+            'phone' => 'Контактный телефон',
+            'limits' => 'Ограничения',
+            'program' => 'Рекомендованная программа',
+            'diet' => 'Рекомендованная диета',
+            'begindate' => 'Дата начала',
+            'email' => 'E-mail',
         );
     }
 
@@ -127,6 +127,11 @@ class Client extends ActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
+    }
+
+    public function getFullName()
+    {
+        return $this->familyname.' '.$this->personname.' '.$this->farthername;
     }
 
     /**

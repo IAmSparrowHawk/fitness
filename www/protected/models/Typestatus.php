@@ -44,7 +44,7 @@ class Typestatus extends ActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'schedules' => array(self::HAS_MANY, 'Schedule', 'status'),
+            'rel_schedule' => array(self::HAS_MANY, 'Schedule', 'status'),
         );
     }
 
@@ -55,7 +55,7 @@ class Typestatus extends ActiveRecord
     {
         return array(
             'id' => 'ID',
-            'descript' => 'Descript',
+            'descript' => 'Статус',
         );
     }
 
